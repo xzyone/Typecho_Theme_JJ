@@ -1,0 +1,25 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="footer">
+  <footer class="footer" th:with="aboutPage=${singlePageFinder.getByName('about')}, linksPage=${singlePageFinder.getByName('links')}">
+    <div class="footer-content">
+      <div class="footer-item">
+        <a th:if="${aboutPage != null}" th:href="${aboutPage.status.permalink}" target="_self" th:title="${aboutPage.spec.title}" th:text="${aboutPage.spec.title}"></a>
+        <a th:if="${linksPage != null}" th:href="${linksPage.status.permalink}" target="_self" th:title="${linksPage.spec.title}" th:text="${linksPage.spec.title}"></a>
+        <a th:href="@{/sitemap.xml}" target="_blank" title="站点地图">站点地图</a>
+      </div>
+      <div class="footer-item">版权所有：<span th:text="${site.title}"></span></div>
+      <div class="footer-item">联系地址：<span th:text="${theme.config.address}"></span></div>
+      <div class="footer-item" th:if="${site.owner != null and site.owner.email != null}">
+        <span>联系邮箱：</span><a th:href="|mailto:${site.owner.email}|" target="_self" th:text="${site.owner.email}"></a>
+      </div>
+      <div class="footer-item">
+        <a th:href="@{/}" target="_self" th:title="${site.title}">
+          &copy;<span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> <span th:text="${site.title}"></span>
+        </a>
+      </div>
+      <th:block th:if="${theme.config.filing != null}" th:utext="${theme.config.filing}"></th:block>
+      <div class="footer-item">
+        Blog By <a href="https://www.halo.run" target="_blank" title="Halo">Halo</a>
+      </div>
+    </div>
+  </footer>
+</th:block>

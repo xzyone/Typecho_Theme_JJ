@@ -1,0 +1,38 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="recent-comments">
+  <div class="recent-comments">
+    <div class="recent-comments-content">
+      <div class="recent-comments-head">
+        <i class="jj-icon jj-icon-comment recent-comments-head-icon"></i>
+        <h3 class="recent-comments-title">最近评论</h3>
+      </div>
+      <div class="recent-comments-body" th:with="comments=${commentFinder.list(null, 1, 6)}">
+        <th:block th:replace="~{partials/home/recent-comments-skeleton :: recent-comments-skeleton}" />
+        <div class="recent-comments-list hidden">
+          <div class="recent-comments-list-placeholder" th:if="${comments == null or #lists.isEmpty(comments.items)}">暂无评论</div>
+          <a
+            class="recent-comments-list-item"
+            th:each="comment : ${comments.items}"
+            th:href="${comment.spec.subjectRef != null and comment.spec.subjectRef.kind == 'Post' ? postFinder.getByName(comment.spec.subjectRef.name).status.permalink : (comment.spec.subjectRef != null and comment.spec.subjectRef.kind == 'SinglePage' ? singlePageFinder.getByName(comment.spec.subjectRef.name).status.permalink : '#')}"
+            target="_self"
+            th:title="${comment.owner != null ? comment.owner.displayName : '匿名'}"
+          >
+            <div class="recent-comments-list-item-avatar">
+              <img th:if="${comment.owner != null and comment.owner.avatar != null}" th:src="${comment.owner.avatar}" th:alt="${comment.owner.displayName}" />
+              <span th:if="${comment.owner == null or comment.owner.avatar == null}" th:text="${(comment.owner != null ? comment.owner.displayName : '匿').substring(0,1)}"></span>
+            </div>
+            <div class="recent-comments-list-item-content">
+              <div class="recent-comments-list-item-title" th:text="${comment.owner != null ? comment.owner.displayName : '匿名'}"></div>
+              <div class="recent-comments-list-item-msg" th:text="${#strings.abbreviate(#strings.replace(comment.spec.content, '\n', ' '), 120)}"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="recent-comments-footer" th:if="${#authentication != null and #authentication.authenticated}">
+        <a class="recent-comments-management-btn" th:href="@{/console/comments}" target="_self">
+          <span>管理评论</span>
+          <i class="jj-icon jj-icon-right recent-comments-management-btn-icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</th:block>

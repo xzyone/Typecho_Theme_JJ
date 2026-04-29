@@ -1,0 +1,12 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="copyright(item)">
+  <div class="copyright">
+    <div class="copyright-content">
+      <div class="copyright-title">版权申明</div>
+      <p class="copyright-desc" th:if="${#strings.isEmpty(theme.config.custom_copyright)}">
+        本文系作者 <a th:href="${item.owner != null ? item.owner.website : site.url}" th:text="'@' + (item.owner != null ? item.owner.displayName : site.title)"></a> 原创发布在
+        <span th:text="${site.title}"></span> 站点。未经许可，禁止转载。
+      </p>
+      <p class="copyright-desc" th:if="${not #strings.isEmpty(theme.config.custom_copyright)}" th:utext="${theme.config.custom_copyright}"></p>
+    </div>
+  </div>
+</th:block>

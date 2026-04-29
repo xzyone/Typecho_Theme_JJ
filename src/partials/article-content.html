@@ -1,0 +1,33 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article-content(item, type)">
+  <article class="article-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="article-content-card">
+      <div class="article-content-card-head" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <h1 class="article-content-title" th:text="${item.spec.title}"></h1>
+        <div class="article-content-author">
+          <a class="article-content-author-name" th:href="${item.owner != null ? item.owner.website : site.url}" target="_self" itemprop="url" rel="author" th:text="${item.owner != null ? item.owner.displayName : site.title}"></a>
+          <time class="article-content-time" th:datetime="${item.spec.publishTime}" itemprop="datePublished" th:text="${#temporals.format(item.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></time>
+          <span class="article-content-views">
+            <i class="jj-icon jj-icon-eye article-content-views-icon"></i><span th:text="${item.stats.visit}"></span>
+          </span>
+          <span class="article-content-reading-time">
+            <i class="jj-icon jj-icon-time-circle article-content-reading-time-icon"></i>
+            <span th:text="${T(java.lang.Math).max(1, T(java.lang.Math).ceil(#strings.length(item.content.content) / 400.0))}"></span> 分钟
+          </span>
+          <a
+            class="article-content-edit-btn"
+            th:if="${#authentication != null and #authentication.authenticated and item.owner != null and #authentication.name == item.owner.name}"
+            th:href="@{${type == 'post' ? '/console/posts/editor' : '/console/pages/editor'}(name=${item.metadata.name}, returnToView=true)}"
+            target="_self"
+            >编辑</a
+          >
+        </div>
+      </div>
+      <div class="article-content-card-body">
+        <th:block th:with="titleImg=${item.metadata.annotations != null ? item.metadata.annotations.get('titleImg') : item.spec.cover}">
+          <img class="article-content-title-img" th:if="${not #strings.isEmpty(titleImg)}" th:src="${titleImg}" th:alt="${item.spec.title}" />
+        </th:block>
+        <div id="markdown" class="article-content-markdown markdown-body" th:utext="${item.content.content}"></div>
+      </div>
+    </div>
+  </article>
+</th:block>

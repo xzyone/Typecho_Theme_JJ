@@ -1,0 +1,200 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: theme-jj-setting
+spec:
+  forms:
+    - group: general
+      label: 基础设置
+      formSchema:
+        - $formkit: text
+          name: header_menu
+          label: 顶部菜单名称
+          value: main
+        - $formkit: text
+          name: address
+          label: 底部联系地址
+          value: 东之国中远离人里的边境之地
+        - $formkit: textarea
+          name: filing
+          label: 备案信息
+          value: ""
+        - $formkit: textarea
+          name: head_insert_code
+          label: head 标签底部插入代码
+          value: ""
+        - $formkit: textarea
+          name: body_insert_code
+          label: body 标签底部插入代码
+          value: ""
+    - group: content
+      label: 内容设置
+      formSchema:
+        - $formkit: select
+          name: pagination_type
+          label: 文章翻页类型
+          value: infinite
+          options:
+            - label: 无限滚动
+              value: infinite
+            - label: 按钮翻页
+              value: button
+        - $formkit: select
+          name: error_type
+          label: 404 页面类型
+          value: juejin
+          options:
+            - label: 谷歌浏览器小恐龙
+              value: chrome
+            - label: 掘金 404
+              value: juejin
+        - $formkit: text
+          name: sticky_post_names
+          label: 置顶文章标识列表（逗号分隔）
+          value: ""
+        - $formkit: text
+          name: sticky_post_tag
+          label: 置顶文章 Tag
+          value: 置顶
+        - $formkit: text
+          name: home_recommended_post_names
+          label: 首页推荐文章标识列表（逗号分隔）
+          value: ""
+        - $formkit: text
+          name: home_recommended_post_tag
+          label: 首页推荐文章 Tag
+          value: 推荐
+        - $formkit: text
+          name: article_recommended_post_name
+          label: 文章详情页推荐文章标识
+          value: ""
+        - $formkit: text
+          name: article_recommended_post_tag
+          label: 文章详情页推荐文章 Tag
+          value: 推荐
+        - $formkit: textarea
+          name: custom_copyright
+          label: 自定义文章版权声明
+          value: ""
+        - $formkit: checkbox
+          name: enable_like
+          label: 开启点赞按钮
+          value: false
+    - group: markdown
+      label: Markdown 样式
+      formSchema:
+        - $formkit: select
+          name: default_markdown_theme
+          label: 默认文章主题
+          value: juejin
+          options:
+            - label: 掘金
+              value: juejin
+            - label: github
+              value: github
+            - label: smartblue
+              value: smartblue
+            - label: cyanosis
+              value: cyanosis
+            - label: channing-cyan
+              value: channing-cyan
+            - label: fancy
+              value: fancy
+            - label: hydrogen
+              value: hydrogen
+            - label: v-green
+              value: v-green
+            - label: vue-pro
+              value: vue-pro
+            - label: healer-readable
+              value: healer-readable
+            - label: mk-cute
+              value: mk-cute
+            - label: geek-black
+              value: geek-black
+            - label: qklhk-chocolate
+              value: qklhk-chocolate
+            - label: orange
+              value: orange
+            - label: scrolls-light
+              value: scrolls-light
+            - label: simplicity-green
+              value: simplicity-green
+            - label: arknights
+              value: arknights
+            - label: vuepress
+              value: vuepress
+            - label: nico
+              value: nico
+            - label: devui-blue
+              value: devui-blue
+            - label: serene-rose
+              value: serene-rose
+            - label: z-blue
+              value: z-blue
+            - label: minimalism
+              value: minimalism
+            - label: yu
+              value: yu
+            - label: keepnice
+              value: keepnice
+        - $formkit: select
+          name: default_highlight_theme
+          label: 默认代码高亮主题
+          value: juejin
+          options:
+            - label: 无
+              value: ""
+            - label: 掘金
+              value: juejin
+            - label: github
+              value: github
+            - label: github-gist
+              value: github-gist
+            - label: atom-one-dark
+              value: atom-one-dark
+            - label: atom-one-light
+              value: atom-one-light
+            - label: monokai
+              value: monokai
+            - label: monokai-sublime
+              value: monokai-sublime
+            - label: srcery
+              value: srcery
+            - label: tomorrow-night-blue
+              value: tomorrow-night-blue
+            - label: tomorrow-night-eighties
+              value: tomorrow-night-eighties
+            - label: tomorrow-night
+              value: tomorrow-night
+            - label: tomorrow
+              value: tomorrow
+            - label: atelier-sulphurpool-light
+              value: atelier-sulphurpool-light
+            - label: androidstudio
+              value: androidstudio
+            - label: a11y-dark
+              value: a11y-dark
+            - label: a11y-light
+              value: a11y-light
+            - label: zenburn
+              value: zenburn
+    - group: docsearch
+      label: DocSearch
+      formSchema:
+        - $formkit: checkbox
+          name: enable_docsearch
+          label: 启用 DocSearch
+          value: false
+        - $formkit: text
+          name: docsearch_app_id
+          label: DocSearch AppId
+          value: ""
+        - $formkit: text
+          name: docsearch_api_key
+          label: DocSearch ApiKey
+          value: ""
+        - $formkit: text
+          name: docsearch_index_name
+          label: DocSearch IndexName
+          value: ""

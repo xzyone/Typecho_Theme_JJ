@@ -1,0 +1,31 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="recommended-article">
+  <th:block th:with="nameList=${#strings.arraySplit(theme.config.home_recommended_post_names ?: '', ',')}">
+    <div class="recommended-article" th:if="${nameList != null and !#lists.isEmpty(nameList)}">
+      <div class="recommended-article-content">
+        <th:block
+          th:each="name : ${nameList}"
+          th:with="trimName=${#strings.trim(name)}, postItem=${#strings.isEmpty(trimName) ? null : postFinder.getByName(trimName)}"
+        >
+          <a
+            class="recommended-article-item-link"
+            th:if="${postItem != null}"
+            th:href="${postItem.status.permalink}"
+            itemprop="url"
+            target="_blank"
+            th:title="${postItem.spec.title}"
+          >
+            <div class="recommended-article-item">
+              <img
+                class="recommended-article-item-img"
+                th:src="@{/assets/static/images/home_recommended_article_loading.gif}"
+                th:attr="data-src=${#strings.isEmpty(postItem.spec.cover) ? @{/assets/static/images/home_recommended_article_empty.jpg} : postItem.spec.cover}"
+                th:alt="${postItem.spec.title}"
+              />
+              <span class="recommended-article-item-tag" th:text="${theme.config.home_recommended_post_tag ?: '推荐'}"></span>
+            </div>
+          </a>
+        </th:block>
+      </div>
+    </div>
+  </th:block>
+</th:block>

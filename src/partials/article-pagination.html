@@ -1,0 +1,19 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article-pagination(posts)">
+  <th:block th:if="${theme.config.pagination_type == 'infinite'}">
+    <div class="article-pagination hidden" th:if="${posts != null}">
+      <div class="article-pagination-content">
+        <a class="prev" th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
+        <a class="next" th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
+        <img class="article-pagination-loading" th:src="@{/assets/static/images/article-loading.gif}" alt="加载中" />
+        <span class="article-pagination-no-more">没有更多了</span>
+      </div>
+    </div>
+  </th:block>
+  <th:block th:if="${theme.config.pagination_type == 'button'}">
+    <div class="pagination-button hidden" th:if="${posts != null}">
+      <a class="prev" th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
+      <a class="next" th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
+    </div>
+    <div class="pagination-button-no-more hidden" th:if="${posts == null or (!posts.hasPrevious() and !posts.hasNext())}">没有更多了</div>
+  </th:block>
+</th:block>

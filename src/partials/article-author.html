@@ -1,0 +1,30 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article-author(item)">
+  <div class="article-author immersion-hide">
+    <div class="article-author-content" itemscope itemtype="http://schema.org/Person">
+      <a class="article-author-head" th:href="${item.owner != null ? item.owner.website : site.url}" target="_self" rel="author">
+        <div class="article-author-avatar">
+          <img th:if="${item.owner != null and item.owner.avatar != null}" th:src="${item.owner.avatar}" th:alt="${item.owner.displayName}" />
+          <span th:if="${item.owner == null or item.owner.avatar == null}" th:text="${site.title.substring(0,1)}"></span>
+        </div>
+        <div class="article-author-info">
+          <div class="article-author-name" itemprop="name" th:text="${item.owner != null ? item.owner.displayName : site.title}"></div>
+          <div class="article-author-group" th:text="${item.owner != null ? item.owner.displayName : '访客'}"></div>
+        </div>
+      </a>
+      <div class="article-author-body">
+        <div class="article-author-item">
+          <i class="jj-icon jj-icon-like-fill article-author-item-icon"></i>
+          <span class="article-author-item-text">获得点赞 <span th:text="${item.stats.upvote}"></span></span>
+        </div>
+        <div class="article-author-item">
+          <i class="jj-icon jj-icon-eye-fill article-author-item-icon"></i>
+          <span class="article-author-item-text">文章被阅读 <span th:text="${item.stats.visit}"></span></span>
+        </div>
+        <div class="article-author-item">
+          <i class="jj-icon jj-icon-sync article-author-item-icon"></i>
+          <span class="article-author-item-text">最后更新 <span th:text="${#temporals.format(item.status.lastModifyTime, 'yyyy-MM-dd HH:mm')}" ></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>

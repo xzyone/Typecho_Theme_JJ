@@ -1,0 +1,92 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article-list(posts, stickyNames, stickyTag)">
+  <div class="article-card-wrap hidden" th:if="${posts != null}">
+    <th:block th:with="articleTarget=${theme.config.pagination_type == 'infinite' ? '_blank' : '_self'}">
+      <article
+        class="article-card"
+        th:each="post : ${posts.items}"
+        th:attr="data-link=${post.status.permalink}"
+        itemscope
+        itemtype="http://schema.org/BlogPosting"
+      >
+        <a class="article-card-hidden-a" th:href="${post.status.permalink}" itemprop="url" th:text="${post.spec.title}"></a>
+        <div class="article-card-head">
+          <span class="article-card-user" itemprop="author">
+            <span itemprop="name" rel="author" th:text="${post.owner.displayName}"></span>
+          </span>
+          <time
+            class="article-card-time"
+            th:datetime="${post.spec.publishTime}"
+            itemprop="datePublished"
+            th:text="${#temporals.format(post.spec.publishTime, 'yyyy-MM-dd')}"
+          ></time>
+          <span class="article-card-category">
+            <th:block th:if="${post.categories != null and !#lists.isEmpty(post.categories)}">
+              <a
+                class="article-card-category-link"
+                th:each="category : ${post.categories}"
+                th:href="${category.status.permalink}"
+                th:attr="target=${articleTarget}"
+                th:title="${category.spec.displayName}"
+                th:text="${category.spec.displayName}"
+              ></a>
+            </th:block>
+            <span th:if="${post.categories == null or #lists.isEmpty(post.categories)}" class="article-card-category-separator">·</span>
+          </span>
+        </div>
+        <div class="article-card-body">
+          <div class="article-card-main">
+            <h2 class="article-card-title" itemprop="name headline">
+              <span
+                class="article-card-sticky-tag"
+                th:if="${stickyNames != null and #lists.contains(stickyNames, post.metadata.name)}"
+                th:text="${stickyTag}"
+              ></span>
+              <span th:text="${post.spec.title}"></span>
+            </h2>
+            <p class="article-card-desc" itemprop="articleBody" th:text="${post.status.excerpt ?: '暂无简介'}"></p>
+            <div class="article-card-footer">
+              <div class="article-card-footer-left" itemprop="interactionCount">
+                <span class="article-card-footer-item">
+                  <i class="jj-icon jj-icon-eye article-card-footer-item-icon"></i>
+                  <span th:text="${post.stats.visit}"></span>
+                </span>
+                <span class="article-card-footer-item">
+                  <i class="jj-icon jj-icon-like article-card-footer-item-icon"></i>
+                  <span th:text="${post.stats.upvote}"></span>
+                </span>
+                <a
+                  class="article-card-footer-item comments"
+                  th:href="${post.status.permalink} + '#comments'"
+                  th:attr="target=${articleTarget}"
+                  title="文章评论"
+                >
+                  <i class="jj-icon jj-icon-message article-card-footer-item-icon"></i>
+                  <span th:text="${post.stats.comment}"></span>
+                </a>
+              </div>
+              <div class="article-card-footer-right" th:if="${post.tags != null and !#lists.isEmpty(post.tags)}">
+                <a
+                  class="article-card-tag"
+                  th:each="tag, iterStat : ${post.tags}"
+                  th:if="${iterStat.index < 3}"
+                  th:href="${tag.status.permalink}"
+                  th:attr="target=${articleTarget}"
+                  th:title="${tag.spec.displayName}"
+                  th:text="${tag.spec.displayName}"
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="article-card-thumb" th:if="${not #strings.isEmpty(post.spec.cover)}">
+            <img
+              class="article-card-thumb-img"
+              th:src="@{/assets/static/images/loading.gif}"
+              th:attr="data-src=${post.spec.cover}, data-error=@{/assets/static/images/loading_error.gif}"
+              th:alt="${post.spec.title}"
+            />
+          </div>
+        </div>
+      </article>
+    </th:block>
+  </div>
+</th:block>

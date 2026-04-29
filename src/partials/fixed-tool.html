@@ -1,0 +1,17 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="fixed-tool(showDirectoryToggle)">
+  <div class="fixed-tool">
+    <div class="fixed-tool-content">
+      <div class="fixed-tool-item back-to-top">
+        <i class="jj-icon jj-icon-arrow_up_fill fixed-tool-item-icon"></i>
+      </div>
+      <div class="fixed-tool-item docsearch-wrapper" th:if="${theme.config.enable_docsearch}"></div>
+      <div class="fixed-tool-item theme-switch">
+        <i class="jj-icon jj-icon-daytime-mode fixed-tool-item-icon dark-icon"></i>
+        <i class="jj-icon jj-icon-daytime-mode-fill fixed-tool-item-icon light-icon"></i>
+      </div>
+      <div class="fixed-tool-item mobile-directory-tree-toggle" th:if="${showDirectoryToggle}">
+        <i class="jj-icon jj-icon-unorderedlist fixed-tool-item-icon"></i>
+      </div>
+    </div>
+  </div>
+</th:block>

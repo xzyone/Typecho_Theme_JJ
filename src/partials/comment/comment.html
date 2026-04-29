@@ -1,0 +1,11 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="comment(item, type)">
+  <div class="comment immersion-hide" id="comments">
+    <div class="comment-content">
+      <h3 class="comment-title">评论</h3>
+      <div th:if="${item.spec.allowComment}">
+        <halo:comment group="content.halo.run" th:kind="${type}" th:attr="name=${item.metadata.name}" />
+      </div>
+      <div class="comment-off" th:unless="${item.spec.allowComment}">-- 评论已关闭 --</div>
+    </div>
+  </div>
+</th:block>

@@ -1,0 +1,21 @@
+apiVersion: theme.halo.run/v1alpha1
+kind: Theme
+metadata:
+  name: theme-jj
+spec:
+  displayName: JJ Juejin Style
+  author:
+    name: mulingyuer
+    website: https://www.mulingyuer.com
+  description: A Halo port of the JJ Juejin-inspired Typecho theme.
+  logo: https://www.halo.run/logo
+  homepage: https://github.com/xzyone/Typecho_Theme_JJ
+  repo: https://github.com/xzyone/Typecho_Theme_JJ
+  issues: https://github.com/xzyone/Typecho_Theme_JJ/issues
+  settingName: "theme-jj-setting"
+  configMapName: "theme-jj-config"
+  version: 1.0.0
+  requires: ">=2.0.0"
+  license:
+    - name: "BSD-3-Clause"
+      url: "https://github.com/xzyone/Typecho_Theme_JJ/blob/main/LICENSE"

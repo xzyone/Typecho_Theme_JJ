@@ -1,0 +1,41 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="nav">
+  <nav class="nav" th:with="categoryPage=${categoryFinder.list(1, 200)}, currentPath=${#httpServletRequest.requestURI}">
+    <div class="nav-container">
+      <div class="nav-content">
+        <div class="nav-list">
+          <th:block th:if="${categoryPage != null}">
+            <th:block th:each="category : ${categoryPage.items}">
+              <th:block th:if="${category.children != null and !#lists.isEmpty(category.children)}">
+                <div class="nav-list-item nav-list-item-parent" th:classappend="${currentPath != null and category.status?.permalink != null and #strings.endsWith(currentPath, category.status.permalink) ? ' active' : ''}">
+                  <a class="nav-list-item-parent-name" th:href="${category.status.permalink}" target="_self" th:title="${category.spec.displayName}" th:text="${category.spec.displayName}"></a>
+                  <div class="nav-list-secondary">
+                    <a
+                      class="nav-list-secondary-item"
+                      th:each="child : ${category.children}"
+                      th:classappend="${currentPath != null and child.status?.permalink != null and #strings.endsWith(currentPath, child.status.permalink) ? ' active' : ''}"
+                      th:href="${child.status.permalink}"
+                      target="_self"
+                      th:title="${child.spec.displayName}"
+                      th:text="${child.spec.displayName}"
+                    ></a>
+                  </div>
+                </div>
+              </th:block>
+              <th:block th:unless="${category.children != null and !#lists.isEmpty(category.children)}">
+                <a
+                  class="nav-list-item"
+                  th:classappend="${currentPath != null and category.status?.permalink != null and #strings.endsWith(currentPath, category.status.permalink) ? ' active' : ''}"
+                  th:href="${category.status.permalink}"
+                  target="_self"
+                  th:title="${category.spec.displayName}"
+                  th:text="${category.spec.displayName}"
+                ></a>
+              </th:block>
+            </th:block>
+          </th:block>
+        </div>
+      </div>
+    </div>
+    <div class="nav-secondary-warp"></div>
+  </nav>
+</th:block>

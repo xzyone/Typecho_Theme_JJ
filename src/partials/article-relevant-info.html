@@ -1,0 +1,24 @@
+<th:block xmlns:th="https://www.thymeleaf.org" th:fragment="article-relevant-info(item)">
+  <div class="article-relevant-info">
+    <div class="article-relevant-info-content">
+      <span class="article-relevant-info-item">
+        <span class="article-relevant-info-item-name">分类：</span>
+        <span class="article-relevant-info-item-list category">
+          <th:block th:if="${item.categories != null and !#lists.isEmpty(item.categories)}">
+            <a th:each="category : ${item.categories}" th:href="${category.status.permalink}" th:text="${category.spec.displayName}"></a>
+          </th:block>
+          <a th:if="${item.categories == null or #lists.isEmpty(item.categories)}" href="javascript:;">暂无分类</a>
+        </span>
+      </span>
+      <span class="article-relevant-info-item">
+        <span class="article-relevant-info-item-name">标签：</span>
+        <span class="article-relevant-info-item-list tag">
+          <th:block th:if="${item.tags != null and !#lists.isEmpty(item.tags)}">
+            <a th:each="tag : ${item.tags}" th:href="${tag.status.permalink}" th:text="${tag.spec.displayName}"></a>
+          </th:block>
+          <a th:if="${item.tags == null or #lists.isEmpty(item.tags)}" href="javascript:;">暂无标签</a>
+        </span>
+      </span>
+    </div>
+  </div>
+</th:block>
